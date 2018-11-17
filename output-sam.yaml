@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS Serverless Spring Boot API - my.service::springboot-aws-sample
+Outputs:
+  SpringbootAwsSampleApi:
+    Description: URL for application
+    Export:
+      Name: SpringbootAwsSampleApi
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/ping
+Resources:
+  SpringbootAwsSampleFunction:
+    Properties:
+      CodeUri: s3://java-aws-serverless-demo/5747e1dac38ec8111ca5a332bc8bc982
+      Events:
+        GetResource:
+          Properties:
+            Method: any
+            Path: /{proxy+}
+          Type: Api
+      Handler: my.service.StreamLambdaHandler::handleRequest
+      MemorySize: 512
+      Policies: AWSLambdaBasicExecutionRole
+      Runtime: java8
+      Timeout: 30
+    Type: AWS::Serverless::Function
+  Table1:
+    Properties:
+      PrimaryKey:
+        Name: productId
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 100
+        WriteCapacityUnits: 100
+    Type: AWS::Serverless::SimpleTable
+Transform: AWS::Serverless-2016-10-31
