@@ -10,7 +10,7 @@ Outputs:
 Resources:
   SpringbootAwsSampleFunction:
     Properties:
-      CodeUri: s3://java-aws-serverless-demo/5747e1dac38ec8111ca5a332bc8bc982
+      CodeUri: s3://java-aws-serverless-demo/b3800215e50b9e99e4daa63f86eafd53
       Events:
         GetResource:
           Properties:
@@ -19,7 +19,7 @@ Resources:
           Type: Api
       Handler: my.service.StreamLambdaHandler::handleRequest
       MemorySize: 512
-      Policies: AWSLambdaBasicExecutionRole
+      Policies: AmazonDynamoDBFullAccess
       Runtime: java8
       Timeout: 30
     Type: AWS::Serverless::Function
@@ -31,5 +31,6 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 100
         WriteCapacityUnits: 100
+      TableName: PRODUCTS
     Type: AWS::Serverless::SimpleTable
 Transform: AWS::Serverless-2016-10-31

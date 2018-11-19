@@ -9,7 +9,7 @@ Resources:
       Runtime: java8
       CodeUri: target/springboot-aws-sample-1.0-SNAPSHOT.jar
       MemorySize: 512
-      Policies: AWSLambdaBasicExecutionRole
+      Policies: AmazonDynamoDBFullAccess
       Timeout: 30
       Events:
         GetResource:
@@ -21,6 +21,7 @@ Resources:
   Table1:
     Type: AWS::Serverless::SimpleTable
     Properties:
+      TableName: PRODUCTS
       PrimaryKey:
         Name: productId
         Type: String
